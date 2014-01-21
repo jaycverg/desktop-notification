@@ -17,18 +17,18 @@ import javax.swing.Timer;
  *
  * @author jvergara <jvergara@gocatapult.com>
  */
-public class TrayIconNotification
+public class TrayNotification
 {
 
     private TrayIcon trayIcon;
 
-    public TrayIconNotification()
+    public TrayNotification()
     {
         //Check the SystemTray support
         if (!SystemTray.isSupported()) {
-            System.out.println("SystemTray is not supported");
-            return;
+            throw new RuntimeException("SystemTray is not supported");
         }
+        
         final PopupMenu popup = new PopupMenu();
         trayIcon = new TrayIcon(createImage("bulb.gif", "tray icon"));
         final SystemTray tray = SystemTray.getSystemTray();
@@ -51,13 +51,11 @@ public class TrayIconNotification
             tray.add(trayIcon);
         }
         catch (AWTException e) {
-            System.out.println("TrayIcon could not be added.");
-            return;
+            throw new RuntimeException("TrayIcon could not be added.");
         }
 
         trayIcon.addActionListener((ActionEvent e) -> {
-            JOptionPane.showMessageDialog(null,
-                    "This dialog box is run from System Tray");
+            // TODO: display a settings window
         });
 
         aboutItem.addActionListener((ActionEvent e) -> {
@@ -79,7 +77,7 @@ public class TrayIconNotification
     //Obtain the image URL
     protected static Image createImage(String path, String description)
     {
-        URL imageURL = TrayIconNotification.class.getResource(path);
+        URL imageURL = TrayNotification.class.getResource(path);
 
         if (imageURL == null) {
             System.err.println("Resource not found: " + path);

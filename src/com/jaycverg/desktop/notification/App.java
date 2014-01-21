@@ -8,7 +8,7 @@ import javax.swing.UnsupportedLookAndFeelException;
  *
  * @author jvergara <jvergara@gocatapult.com>
  */
-public class Notification
+public class App
 {
 
     public static void main(String[] args)
@@ -23,7 +23,7 @@ public class Notification
         UIManager.put("swing.boldMetal", Boolean.FALSE);
 
         SwingUtilities.invokeLater(() -> {
-            new TrayIconNotification();
+            new TrayNotification();
         });
     }
 
