@@ -1,6 +1,6 @@
 package com.jaycverg.desktop.notification;
 
-import javax.swing.SwingUtilities;
+import groovy.lang.GroovyClassLoader;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -11,7 +11,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 public class App
 {
 
-    public static void main(String[] args)
+    public static void main(String[] args) throws Exception
     {
         try {
             UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
@@ -19,12 +19,12 @@ public class App
         catch (UnsupportedLookAndFeelException | IllegalAccessException | InstantiationException | ClassNotFoundException ex) {
             ex.printStackTrace();
         }
-        /* Turn off metal's use of bold fonts */
-        UIManager.put("swing.boldMetal", Boolean.FALSE);
 
-        SwingUtilities.invokeLater(() -> {
-            new TrayNotification();
-        });
+        ClassLoader cl = new GroovyClassLoader(App.class.getClassLoader());
+        Class<AppLoader> loaderClass = (Class<AppLoader>) cl
+                .loadClass("com.jaycverg.desktop.notification.GroovyAppLoader");
+
+        loaderClass.newInstance().load();
     }
 
 }
