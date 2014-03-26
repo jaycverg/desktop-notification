@@ -1,6 +1,5 @@
 package com.jaycverg.desktop.notification;
 
-import groovy.lang.GroovyClassLoader;
 import javax.swing.UIManager;
 import javax.swing.UnsupportedLookAndFeelException;
 
@@ -20,11 +19,18 @@ public class App
             ex.printStackTrace();
         }
 
-        ClassLoader cl = new GroovyClassLoader(App.class.getClassLoader());
-        Class<AppLoader> loaderClass = (Class<AppLoader>) cl
-                .loadClass("com.jaycverg.desktop.notification.GroovyAppLoader");
+        NotificationUI notificationUI = new NotificationUI();
+        notificationUI.init();
+    }
 
-        loaderClass.newInstance().load();
+    public static String getName()
+    {
+        return "Desktop Notification v1.0";
+    }
+
+    public static String getDescription()
+    {
+        return "Desktop notification client.";
     }
 
 }

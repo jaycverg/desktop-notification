@@ -6,7 +6,7 @@ package com.jaycverg.desktop.notification.service
  */
 public class HolidayService
 {
-    List getHolidays()
+    List getList()
     {
         DBService db = DBService.instance
 

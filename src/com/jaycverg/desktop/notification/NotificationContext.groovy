@@ -1,6 +1,6 @@
 package com.jaycverg.desktop.notification
 
-import com.jaycverg.desktop.notification.service.HolidayService
+import com.jaycverg.desktop.notification.service.*
 
 /**
  *
@@ -8,18 +8,31 @@ import com.jaycverg.desktop.notification.service.HolidayService
  */
 class NotificationContext 
 {
-    HolidayService service = new HolidayService()
-    List holidays = []
-    Map holidayIndex = [:]
+    HolidayService holidaySvc = new HolidayService()
+    NotificationService notificationSvc = new NotificationService()
+
+    List holidays
+    Map holidayIndex
+
+    List notifications
+
+
+    NotificationContext()
+    {
+        init();
+    }
 
     void init()
     {
-        holidays = service.getHolidays()
-        holidayIndex.clear()
+        holidays = holidaySvc.list.asImmutable()
+        holidayIndex = [:]
 
         holidays.each {
             holidayIndex[it.date] = it
         }
+
+        holidayIndex = holidayIndex.asImmutable()
+        notifications = notificationSvc.list.asImmutable()
     }
 
     boolean isHoliday(Date date)

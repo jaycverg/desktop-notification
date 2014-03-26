@@ -30,10 +30,10 @@ public class HolidayMgmtUI extends javax.swing.JPanel
     private void initComponents()
     {
 
-        jTextField1 = new javax.swing.JTextField();
+        txtDate = new javax.swing.JTextField();
         jLabel1 = new javax.swing.JLabel();
 
-        jTextField1.setText("jTextField1");
+        txtDate.setText("jTextField1");
 
         jLabel1.setText("Date :");
 
@@ -45,7 +45,7 @@ public class HolidayMgmtUI extends javax.swing.JPanel
                 .addContainerGap()
                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 87, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, 195, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(104, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -53,7 +53,7 @@ public class HolidayMgmtUI extends javax.swing.JPanel
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(txtDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel1))
                 .addContainerGap(269, Short.MAX_VALUE))
         );
@@ -62,6 +62,6 @@ public class HolidayMgmtUI extends javax.swing.JPanel
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JTextField jTextField1;
+    private javax.swing.JTextField txtDate;
     // End of variables declaration//GEN-END:variables
 }

@@ -12,6 +12,7 @@ import java.util.Calendar
 import javax.swing.ImageIcon
 import javax.swing.JOptionPane
 import javax.swing.Timer
+import javax.swing.SwingUtilities;
 
 /**
  *
@@ -22,19 +23,25 @@ class NotificationUI
     private TrayIcon trayIcon
     private NotificationContext context = new NotificationContext()
 
-    NotificationUI()
+    void init()
     {
+        SwingUtilities.invokeLater {
+            doInit()
+        }
+    }
+
+    private void doInit() {
         //Check the SystemTray support
         if (!SystemTray.isSupported()) {
             throw new RuntimeException("SystemTray is not supported")
         }
 
         final PopupMenu popup = new PopupMenu()
-        trayIcon = new TrayIcon(createImage("bulb.gif", "tray icon"))
+        trayIcon = new TrayIcon(createImage("timesheet4.png", "tray icon"))
         final SystemTray tray = SystemTray.getSystemTray()
 
         trayIcon.setImageAutoSize(true)
-        trayIcon.setToolTip("Timesheet Notification")
+        trayIcon.setToolTip(App.getName())
 
         // Create a popup menu components
         MenuItem aboutItem = new MenuItem("About")
@@ -79,7 +86,7 @@ class NotificationUI
     {
         URL imageURL = NotificationUI.class.getResource(path)
 
-        if (imageURL) {
+        if (!imageURL) {
             System.err.println("Resource not found: " + path)
             return null
         }
@@ -99,28 +106,30 @@ class NotificationUI
 
         def msgs = []
 
-        // time checker
-        if (isValueIn(time, 8, 12) && isValueIn(minutes, 15, 30, 45, 50, 55, 58, 59)) {
-            msgs << "Don't forget to timein."
-        }
-        else if (time == 21 && isValueIn(minutes, 45, 50, 58, 59)) {
-            msgs << "Don't forget to timeout.\n"
+        context.notifications.each { notification ->
+            println "checking $notification"
+            for (def item : notification.items) {
+                if (isValueIn(time, item.time) && isValueIn(minutes, item.minutes)) {
+                    msgs << notification.message
+                    break;
+                }
+            }
         }
 
         // weekend checker
-        if (isValueIn(dayOfWeek, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY)
-                && isValueIn(time, 21) && isValueIn(minutes, 15, 30, 45, 50, 55, 58, 59))
-        {
-            msgs << "Don't forget to prepare your weekly task report.\n"
-        }
+//        if (isValueIn(dayOfWeek, Calendar.FRIDAY, Calendar.SATURDAY, Calendar.SUNDAY)
+//                && isValueIn(time, 21) && isValueIn(minutes, 15, 30, 45, 50, 55, 58, 59))
+//        {
+//            msgs << "Don't forget to prepare your weekly task report.\n"
+//        }
 
         // cutof checker
-        int cutOffDay = getCutOffDay(dayOfMonth)
-        if (dayOfMonth == cutOffDay && isValueIn(time, 21)
-                && isValueIn(minutes, 15, 30, 45, 50, 55, 58, 59))
-        {
-            msgs << "Don't forget to submit your timesheet.\n"
-        }
+//        int cutOffDay = getCutOffDay(dayOfMonth)
+//        if (dayOfMonth == cutOffDay && isValueIn(time, 21)
+//                && isValueIn(minutes, 15, 30, 45, 50, 55, 58, 59))
+//        {
+//            msgs << "Don't forget to submit your timesheet.\n"
+//        }
 
         if (!msgs.empty) {
             trayIcon.displayMessage("Reminder", msgs.join('\n'), TrayIcon.MessageType.INFO)
@@ -158,7 +167,7 @@ class NotificationUI
                 context.isHoliday(cal.getTime())
     }
 
-    private boolean isValueIn(int value, int ... items)
+    private boolean isValueIn(int value, List items)
     {
         for (int item : items) {
             if (value == item) {
