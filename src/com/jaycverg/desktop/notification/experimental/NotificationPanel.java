@@ -68,7 +68,7 @@ public class NotificationPanel extends javax.swing.JPanel
         windowCloseButton1.setBounds(14, 4, 24, 24);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(51, 51, 51));
+        jLabel1.setForeground(new java.awt.Color(102, 102, 102));
         jLabel1.setText("Notifications");
 
         javax.swing.GroupLayout pnlTitleBarLayout = new javax.swing.GroupLayout(pnlTitleBar);
