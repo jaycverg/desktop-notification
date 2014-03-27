@@ -6,6 +6,8 @@ import java.awt.GraphicsEnvironment;
 import java.awt.Insets;
 import java.awt.Point;
 import java.awt.Toolkit;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import javax.swing.JWindow;
 import javax.swing.Timer;
 import javax.swing.UIManager;
@@ -50,6 +52,18 @@ public class TestNotificationPanel
 
         window.setVisible(true);
         t.start();
+
+        // close listener
+        window.addWindowListener(new WindowAdapter()
+        {
+
+            @Override
+            public void windowClosed(WindowEvent e)
+            {
+                System.exit(0);
+            }
+
+        });
     }
 
     private static boolean animate(JWindow window, Dimension scrSize, Insets scrInsets)

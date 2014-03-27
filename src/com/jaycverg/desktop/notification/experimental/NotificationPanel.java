@@ -5,6 +5,9 @@
  */
 package com.jaycverg.desktop.notification.experimental;
 
+import java.awt.Window;
+import javax.swing.SwingUtilities;
+
 /**
  *
  * @author jvergara <jvergara@gocatapult.com>
@@ -40,13 +43,13 @@ public class NotificationPanel extends javax.swing.JPanel
 
         pnlTitleBar = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        windowCloseButton1 = new com.jaycverg.desktop.notification.experimental.WindowCloseButton();
         jLabel1 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jSeparator1 = new javax.swing.JSeparator();
 
         setBackground(new java.awt.Color(255, 255, 255));
-        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 204, 204)));
+        setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(196, 196, 196)));
 
         pnlTitleBar.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -54,17 +57,15 @@ public class NotificationPanel extends javax.swing.JPanel
         jPanel2.setPreferredSize(new java.awt.Dimension(50, 31));
         jPanel2.setLayout(null);
 
-        jButton1.setText("x");
-        jButton1.setOpaque(false);
-        jButton1.addActionListener(new java.awt.event.ActionListener()
+        windowCloseButton1.addActionListener(new java.awt.event.ActionListener()
         {
             public void actionPerformed(java.awt.event.ActionEvent evt)
             {
-                jButton1ActionPerformed(evt);
+                windowCloseButton1ActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton1);
-        jButton1.setBounds(6, 4, 39, 23);
+        jPanel2.add(windowCloseButton1);
+        windowCloseButton1.setBounds(14, 4, 24, 24);
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(51, 51, 51));
@@ -120,18 +121,19 @@ public class NotificationPanel extends javax.swing.JPanel
         );
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_jButton1ActionPerformed
-    {//GEN-HEADEREND:event_jButton1ActionPerformed
-        System.exit(0);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void windowCloseButton1ActionPerformed(java.awt.event.ActionEvent evt)//GEN-FIRST:event_windowCloseButton1ActionPerformed
+    {//GEN-HEADEREND:event_windowCloseButton1ActionPerformed
+        Window w = SwingUtilities.getWindowAncestor(this);
+        w.dispose();
+    }//GEN-LAST:event_windowCloseButton1ActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JPanel pnlTitleBar;
+    private com.jaycverg.desktop.notification.experimental.WindowCloseButton windowCloseButton1;
     // End of variables declaration//GEN-END:variables
 }
